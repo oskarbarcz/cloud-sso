@@ -15,7 +15,7 @@
             <span class="form__checkbox-text">Remember me</span>
         </label>
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrf_key) }}">
         <button class="form__submit">Sign in</button>
 
         <a class="form__link" href="">Forgot password?</a>

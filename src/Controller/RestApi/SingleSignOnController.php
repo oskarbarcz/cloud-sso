@@ -4,37 +4,62 @@ declare(strict_types=1);
 
 namespace App\Controller\RestApi;
 
+use App\Entity\Account;
 use App\Repository\AccountRepository;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+use function dd;
 
 class SingleSignOnController extends AbstractController
 {
     private JWTTokenManagerInterface $manager;
     private AccountRepository $repository;
+    private UserPasswordEncoderInterface $userPasswordEncoder;
 
-    public function __construct(JWTTokenManagerInterface $manager, AccountRepository $repository)
-    {
+    public function __construct(
+        JWTTokenManagerInterface $manager,
+        AccountRepository $repository,
+        UserPasswordEncoderInterface $userPasswordEncoder
+    ) {
         $this->manager = $manager;
         $this->repository = $repository;
+        $this->userPasswordEncoder = $userPasswordEncoder;
     }
 
     /**
-     * @Route("/sso-login", name="sso_login")
+     * @Route("/sso", name="sso_login")
      * @param Request $request
-     * @return RedirectResponse
+     * @return Response
      */
-    public function handleLogin(Request $request): RedirectResponse
+    public function handleLogin(Request $request): Response
     {
         // check if server is allowed
-        // check if user is logged in (HOW???)
-        //
-        $account = $this->repository->findOneBy(['email' => 'test0@example.com']);
+        $email = $request->request->get('email');
+        $password = $request->request->get('password');
+
+        if (!$email || !$password) {
+            return $this->render('pages/login.html.twig', ['last_username' => null, 'error' => null]);
+        }
+
+        $account = $this->repository->findOneBy(['email' => $email]);
+
+        if (!$account instanceof Account) {
+            dd("Account with this email was't found: {$email}");
+        }
+
+        if (!$this->userPasswordEncoder->isPasswordValid($account, $password)) {
+            dd("Auth data incorrect, tried: {$email} with password: {$password}");
+        }
 
         $token = $this->manager->create($account);
-        return new RedirectResponse("http://localhost:8080/sso-success/{$token}");
+        $url = "{$request->get('furtherRedirect')}?token={$token}";
+        return $this->redirect($url);
     }
+
+
 }
