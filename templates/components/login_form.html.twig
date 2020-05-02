@@ -1,0 +1,23 @@
+<div class="box">
+    <h2 class="box__title">
+        <span class="fas fa-sign-in-alt fa-fw box__title-icon"></span>
+        Log in
+    </h2>
+    <form class="box__form form" method="POST">
+        <label class="form__label" for="email">Your work email</label>
+        <input class="form__input" name="email" id="email" type="text" required>
+
+        <label class="form__label" for="password">Password</label>
+        <input class="form__input" name="password" id="password" type="password" required>
+
+        <label class="form__checkbox">
+            <input class="form__checkbox-input" name="_remember_me" type="checkbox">
+            <span class="form__checkbox-text">Remember me</span>
+        </label>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <button class="form__submit">Sign in</button>
+
+        <a class="form__link" href="">Forgot password?</a>
+    </form>
+</div>
