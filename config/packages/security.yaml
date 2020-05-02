@@ -3,7 +3,7 @@ security:
     App\Entity\Account:
       algorithm: auto
   providers:
-    app_user_provider:
+    database:
       entity:
         class: App\Entity\Account
         property: email
@@ -11,10 +11,24 @@ security:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
-    login_form:
-      pattern: ^/(!api)
+    api_login:
+      pattern:  ^/api/login
+      stateless: true
+      anonymous: true
+      json_login:
+        check_path:      /api/login
+        success_handler: lexik_jwt_authentication.handler.authentication_success
+        failure_handler: lexik_jwt_authentication.handler.authentication_failure
+    api:
+      pattern:   ^/api
+      stateless: true
+      guard:
+        authenticators:
+          - lexik_jwt_authentication.jwt_token_authenticator
+    gui:
+      stateless: false
       anonymous: lazy
-      provider: app_user_provider
+      provider: database
       guard:
         authenticators:
           - App\Security\LoginFormAuthAuthenticator
@@ -24,20 +38,7 @@ security:
         secret:   '%kernel.secret%'
         lifetime: 604800 # 1 week in seconds
         path:     /
-    api_login:
-      pattern:  ^/api/login
-      stateless: true
-      anonymous: true
-      json_login:
-        check_path:               /api/login
-        success_handler:          lexik_jwt_authentication.handler.authentication_success
-        failure_handler:          lexik_jwt_authentication.handler.authentication_failure
-    api:
-      pattern:   ^/api
-      stateless: true
-      guard:
-        authenticators:
-          - lexik_jwt_authentication.jwt_token_authenticator
   access_control:
     - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/dashboard, roles: IS_AUTHENTICATED_FULLY  }
