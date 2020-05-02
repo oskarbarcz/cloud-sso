@@ -3,38 +3,36 @@
 {% block title %}Login | Cloud SSO{% endblock %}
 
 {% block body %}
-    ABCD
+    <div class="container">
+        <div class="box header">
+            <img class="header__logo" src="{{ asset('media/architektur-logo-dark.svg') }}" alt="">
+            <h1 class="header__title">Cloud Core SSO</h1>
+        </div>
+        <div class="box">
+            <h2 class="box__title">
+                <span class="fas fa-sign-in-alt fa-fw box__title-icon"></span>
+                Log in
+            </h2>
+            <form class="box__form form" method="POST">
+                <label class="form__label" for="email">Your work email</label>
+                <input class="form__input" name="email" id="email" type="text" required>
 
+                <label class="form__label" for="password">Password</label>
+                <input class="form__input" name="password" id="password" type="password" required>
 
-    {#    <form method="post" class="box">#}
-    {#        #}{#        {% if error %}#}
-    {#        #}{#            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
-    {#        #}{#        {% endif %}#}
+                <label class="form__checkbox">
+                    <input class="form__checkbox-input" name="_remember_me" type="checkbox">
+                    <span class="form__checkbox-text">Remember me</span>
+                </label>
 
-    {#        #}{#        {% if app.user %}#}
-    {#        #}{#            <div class="mb-3">#}
-    {#        #}{#                You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>#}
-    {#        #}{#            </div>#}
-    {#        #}{#        {% endif %}#}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <button class="form__submit">Sign in</button>
 
-    {#        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>#}
-    {#        <label for="inputEmail">Email</label>#}
-    {#        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required#}
-    {#               autofocus>#}
-    {#        <label for="inputPassword">Password</label>#}
-    {#        <input type="password" name="password" id="inputPassword" class="form-control" required>#}
-
-    {#        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">#}
-
-    {#        <div class="checkbox mb-3">#}
-    {#            <label>#}
-    {#                <input type="checkbox" name="_remember_me"> Remember me#}
-    {#            </label>#}
-    {#        </div>#}
-
-
-    {#        <button class="btn btn-lg btn-primary" type="submit">#}
-    {#            Sign in#}
-    {#        </button>#}
-    {#    </form>#}
+                <a class="form__link" href="">Forgot password?</a>
+            </form>
+        </div>
+        <div class="box box--text">
+            CloudCore SSO v.1.0.0
+        </div>
+    </div>
 {% endblock %}
