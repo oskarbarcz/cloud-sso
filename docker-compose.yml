@@ -1,0 +1,37 @@
+###############################################################################
+#                          Generated on .docker.io                          #
+###############################################################################
+version: "3.1"
+services:
+  mariadb:
+    image: mariadb:10.4
+    container_name: cloud-sso-mariadb
+    working_dir: /application
+    volumes:
+      - .:/application
+    environment:
+      - MYSQL_ROOT_PASSWORD=pswd
+      - MYSQL_DATABASE=cloudsso
+      - MYSQL_USER=cloudsso
+      - MYSQL_PASSWORD=pswd
+    ports:
+      - "8003:3306"
+
+  webserver:
+    image: nginx:alpine
+    container_name: cloud-sso-webserver
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8000:80"
+
+  php-fpm:
+    build: .docker/php-fpm
+    container_name: cloud-sso-php-fpm
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./.docker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
+
