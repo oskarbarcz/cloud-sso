@@ -74,14 +74,13 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator implemen
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
-            throw new InvalidCsrfTokenException();
+            throw new InvalidCsrfTokenException('CSRF token is invalid or not found.');
         }
 
         $user = $this->accountRepository->findOneBy(['email' => $credentials['email']]);
 
         if (!$user instanceof Account) {
-            // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+            $this->throwNotValid();
         }
 
         return $user;
@@ -89,7 +88,10 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator implemen
 
     public function checkCredentials($credentials, UserInterface $user): bool
     {
-        return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+        if (!$this->passwordEncoder->isPasswordValid($user, $credentials['password'])) {
+            $this->throwNotValid();
+        }
+        return true;
     }
 
     /**
@@ -114,5 +116,13 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator implemen
     protected function getLoginUrl(): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+    }
+
+    /**
+     * @throws CustomUserMessageAuthenticationException
+     */
+    private function throwNotValid(): void
+    {
+        throw new CustomUserMessageAuthenticationException('Given data are incorrect.');
     }
 }

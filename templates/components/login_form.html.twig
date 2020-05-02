@@ -5,7 +5,7 @@
     </h2>
     <form class="box__form form" method="POST">
         <label class="form__label" for="email">Your work email</label>
-        <input class="form__input" name="email" id="email" type="text" required>
+        <input class="form__input" name="email" value="{{ last_username }}" id="email" type="text" required>
 
         <label class="form__label" for="password">Password</label>
         <input class="form__input" name="password" id="password" type="password" required>
@@ -21,3 +21,10 @@
         <a class="form__link" href="">Forgot password?</a>
     </form>
 </div>
+
+{% if error %}
+    <div class="box box--error">
+        <span class="fas.fa-exclamation-circle fa-fw"></span>
+        <span class="box__error">{{ error.message }}</span>
+    </div>
+{% endif %}
