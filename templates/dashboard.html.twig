@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        Zalogowano jako {{ app.user.email }}.
+    {% else %}
+        Niezalogowano.
+    {% endif %}
+{% endblock %}
+
+
