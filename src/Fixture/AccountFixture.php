@@ -8,7 +8,6 @@ use App\Entity\Account;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 use function range;
 
@@ -16,12 +15,10 @@ class AccountFixture extends Fixture
 {
     private ObjectManager $manager;
     private ConsoleOutput $output;
-    private UserPasswordEncoderInterface $userPasswordEncoder;
 
-    public function __construct(UserPasswordEncoderInterface $userPasswordEncoder)
+    public function __construct()
     {
         $this->output = new ConsoleOutput();
-        $this->userPasswordEncoder = $userPasswordEncoder;
     }
 
     public function load(ObjectManager $manager): void
@@ -41,14 +38,11 @@ class AccountFixture extends Fixture
     {
         $account = new Account();
 
-        $rawPassword = "test{$iteration}";
-        $encoded = $this->userPasswordEncoder->encodePassword($account, $rawPassword);
-
         $account
             ->setName("Name{$iteration}")
             ->setSurname("Surname{$iteration}")
             ->setEmail("test{$iteration}@example.com")
-            ->setPassword($encoded);
+            ->setPlainPassword("test{$iteration}");
 
         $this->manager->persist($account);
 
@@ -56,7 +50,7 @@ class AccountFixture extends Fixture
             "Added user \"%s\" (email: \"%s\") with password \"%s\".",
             $account->getUsername(),
             $account->getEmail(),
-            $rawPassword
+            "test{$iteration}"
         );
 
         $this->output->writeln($log);

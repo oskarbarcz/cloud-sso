@@ -12,14 +12,19 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ORM\Entity(repositoryClass="App\Repository\AccountRepository")
  */
-class Account implements UserInterface
+class Account implements Hashable, Uniquable
 {
+    public const UUID_LENGTH = 10;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
+
+    /** @ORM\Column(type="string", length=10) */
+    private ?string $uuid = null;
 
     /** @ORM\Column(type="string", length=180, nullable=true) */
     private ?string $name = null;
@@ -35,6 +40,9 @@ class Account implements UserInterface
 
     /** @ORM\Column(type="string") */
     private ?string $password = null;
+
+    private ?string $plainPassword = null;
+
 
     public function getId(): ?int
     {
@@ -75,7 +83,6 @@ class Account implements UserInterface
         return $this;
     }
 
-
     /** @see UserInterface */
     public function getSalt(): void
     {
@@ -98,6 +105,17 @@ class Account implements UserInterface
         return $this;
     }
 
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(?string $uuid): Account
+    {
+        $this->uuid = $uuid;
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -117,6 +135,17 @@ class Account implements UserInterface
     public function setSurname(?string $surname): Account
     {
         $this->surname = $surname;
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): Account
+    {
+        $this->plainPassword = $plainPassword;
         return $this;
     }
 }
