@@ -64,10 +64,6 @@ class Account implements Hashable, Uniquable
     /** @see UserInterface */
     public function getUsername(): string
     {
-        if ($this->name && $this->surname) {
-            return "{$this->name} {$this->surname}";
-        }
-
         return $this->getEmail();
     }
 

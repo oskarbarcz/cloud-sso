@@ -1,20 +1,20 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-        "This file is @generated automatically"
-    ],
-    "content-hash": "97d261726b50ae8ea0f7f8a3b16e7bb2",
-    "packages": [
-        {
-            "name": "doctrine/annotations",
-            "version": "1.10.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/annotations.git",
-                "reference": "b9d758e831c70751155c698c2f7df4665314a1cb"
-            },
-            "dist": {
+  "_readme": [
+    "This file locks the dependencies of your project to a known state",
+    "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+    "This file is @generated automatically"
+  ],
+  "content-hash": "302870436530aec39ff2adf200290e3c",
+  "packages": [
+    {
+      "name": "doctrine/annotations",
+      "version": "1.10.2",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/doctrine/annotations.git",
+        "reference": "b9d758e831c70751155c698c2f7df4665314a1cb"
+      },
+      "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/annotations/zipball/b9d758e831c70751155c698c2f7df4665314a1cb",
                 "reference": "b9d758e831c70751155c698c2f7df4665314a1cb",
@@ -1483,24 +1483,88 @@
                     "role": "Developer"
                 }
             ],
-            "description": "A simple library to work with JSON Web Token and JSON Web Signature",
-            "keywords": [
-                "JWS",
-                "jwt"
-            ],
-            "time": "2019-05-24T18:30:49+00:00"
+          "description": "A simple library to work with JSON Web Token and JSON Web Signature",
+          "keywords": [
+            "JWS",
+            "jwt"
+          ],
+          "time": "2019-05-24T18:30:49+00:00"
         },
+    {
+      "name": "league/fractal",
+      "version": "0.19.2",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/thephpleague/fractal.git",
+        "reference": "06dc15f6ba38f2dde2f919d3095d13b571190a7c"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/thephpleague/fractal/zipball/06dc15f6ba38f2dde2f919d3095d13b571190a7c",
+        "reference": "06dc15f6ba38f2dde2f919d3095d13b571190a7c",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=5.4"
+      },
+      "require-dev": {
+        "doctrine/orm": "^2.5",
+        "illuminate/contracts": "~5.0",
+        "mockery/mockery": "~0.9",
+        "pagerfanta/pagerfanta": "~1.0.0",
+        "phpunit/phpunit": "^4.8.35 || ^7.5",
+        "squizlabs/php_codesniffer": "~1.5|~2.0|~3.4",
+        "zendframework/zend-paginator": "~2.3"
+      },
+      "suggest": {
+        "illuminate/pagination": "The Illuminate Pagination component.",
+        "pagerfanta/pagerfanta": "Pagerfanta Paginator",
+        "zendframework/zend-paginator": "Zend Framework Paginator"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "0.13-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "League\\Fractal\\": "src"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
         {
-            "name": "lexik/jwt-authentication-bundle",
-            "version": "v2.6.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lexik/LexikJWTAuthenticationBundle.git",
-                "reference": "448551fc08c6cff37aad9d8f27f6b9615cd28966"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikJWTAuthenticationBundle/zipball/448551fc08c6cff37aad9d8f27f6b9615cd28966",
+          "name": "Phil Sturgeon",
+          "email": "me@philsturgeon.uk",
+          "homepage": "http://philsturgeon.uk/",
+          "role": "Developer"
+        }
+      ],
+      "description": "Handle the output of complex data structures ready for API output.",
+      "homepage": "http://fractal.thephpleague.com/",
+      "keywords": [
+        "api",
+        "json",
+        "league",
+        "rest"
+      ],
+      "time": "2020-01-24T23:17:29+00:00"
+    },
+    {
+      "name": "lexik/jwt-authentication-bundle",
+      "version": "v2.6.5",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/lexik/LexikJWTAuthenticationBundle.git",
+        "reference": "448551fc08c6cff37aad9d8f27f6b9615cd28966"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/lexik/LexikJWTAuthenticationBundle/zipball/448551fc08c6cff37aad9d8f27f6b9615cd28966",
                 "reference": "448551fc08c6cff37aad9d8f27f6b9615cd28966",
                 "shasum": ""
             },
