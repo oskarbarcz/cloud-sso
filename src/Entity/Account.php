@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * Main account instance
+ *
  * @ORM\Entity(repositoryClass="App\Repository\AccountRepository")
  */
 class Account implements UserInterface
@@ -17,23 +19,22 @@ class Account implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
-    private $email;
+    /** @ORM\Column(type="string", length=180, nullable=true) */
+    private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
+    /** @ORM\Column(type="string", length=180, nullable=true) */
+    private ?string $surname = null;
 
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     */
-    private $password;
+    /** @ORM\Column(type="string", length=180, unique=true) */
+    private ?string $email = null;
+
+    /** @ORM\Column(type="json") */
+    private array $roles = [];
+
+    /** @ORM\Column(type="string") */
+    private ?string $password = null;
 
     public function getId(): ?int
     {
@@ -52,24 +53,20 @@ class Account implements UserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
+    /** @see UserInterface */
     public function getUsername(): string
     {
-        return $this->email;
+        if ($this->name && $this->surname) {
+            return "{$this->name} {$this->surname}";
+        }
+
+        return $this->getEmail();
     }
 
-    /**
-     * @see UserInterface
-     */
+    /** @see UserInterface */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-        return array_unique($roles);
+        return array_unique([...$this->roles, 'ROLE_USER']);
     }
 
     public function setRoles(array $roles): self
@@ -78,9 +75,18 @@ class Account implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
+
+    /** @see UserInterface */
+    public function getSalt(): void
+    {
+    }
+
+    /** @see UserInterface */
+    public function eraseCredentials(): void
+    {
+    }
+
+    /** @see UserInterface */
     public function getPassword(): string
     {
         return $this->password;
@@ -92,17 +98,25 @@ class Account implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getSalt()
+    public function getName(): ?string
     {
+        return $this->name;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
+    public function setName(?string $name): Account
     {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getSurname(): ?string
+    {
+        return $this->surname;
+    }
+
+    public function setSurname(?string $surname): Account
+    {
+        $this->surname = $surname;
+        return $this;
     }
 }

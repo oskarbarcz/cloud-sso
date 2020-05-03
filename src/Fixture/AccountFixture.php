@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 use function range;
 
-class UserFixture extends Fixture
+class AccountFixture extends Fixture
 {
     private ObjectManager $manager;
     private ConsoleOutput $output;
@@ -45,15 +45,17 @@ class UserFixture extends Fixture
         $encoded = $this->userPasswordEncoder->encodePassword($account, $rawPassword);
 
         $account
+            ->setName("Name{$iteration}")
+            ->setSurname("Surname{$iteration}")
             ->setEmail("test{$iteration}@example.com")
             ->setPassword($encoded);
 
         $this->manager->persist($account);
 
         $log = sprintf(
-            "Added user %s with password %s (raw: %s).",
+            "Added user \"%s\" (email: \"%s\") with password \"%s\".",
+            $account->getUsername(),
             $account->getEmail(),
-            $account->getPassword(),
             $rawPassword
         );
 
