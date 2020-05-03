@@ -11,6 +11,10 @@ security:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
+    api_refresh:
+      pattern:  ^/api/login/refresh
+      stateless: true
+      anonymous: true
     api_login:
       pattern:  ^/api/login
       stateless: true
@@ -50,5 +54,6 @@ security:
 
   access_control:
     - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/login/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
     - { path: ^/dashboard, roles: IS_AUTHENTICATED_FULLY  }
