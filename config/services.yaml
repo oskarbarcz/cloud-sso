@@ -18,3 +18,6 @@ services:
   App\EventListener\UniquableListener:
     tags:
       - { name: doctrine.event_listener, event: prePersist }
+  League\Fractal\Manager:
+    calls:
+      - [setSerializer, ['@App\Transformer\Serializer\SimpleArraySerializer']]

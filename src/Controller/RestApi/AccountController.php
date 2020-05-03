@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller\RestApi;
 
 use App\Transformer\AccountTransformer;
-use App\Transformer\Serializer\SimpleArraySerializer;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,10 +15,9 @@ class AccountController extends AbstractController
 {
     private Manager $manager;
 
-    public function __construct()
+    public function __construct(Manager $manager)
     {
-        $this->manager = new Manager();
-        $this->manager->setSerializer(new SimpleArraySerializer());
+        $this->manager = $manager;
     }
 
     /**
