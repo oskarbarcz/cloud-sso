@@ -86,6 +86,14 @@ class LoginFormAuth extends AbstractFormLoginAuthenticator implements PasswordAu
         return $user;
     }
 
+    /**
+     * @throws CustomUserMessageAuthenticationException
+     */
+    private function throwNotValid(): void
+    {
+        throw new CustomUserMessageAuthenticationException('Given data are incorrect.');
+    }
+
     public function checkCredentials($credentials, UserInterface $user): bool
     {
         if (!$this->passwordEncoder->isPasswordValid($user, $credentials['password'])) {
@@ -116,13 +124,5 @@ class LoginFormAuth extends AbstractFormLoginAuthenticator implements PasswordAu
     protected function getLoginUrl(): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
-    }
-
-    /**
-     * @throws CustomUserMessageAuthenticationException
-     */
-    private function throwNotValid(): void
-    {
-        throw new CustomUserMessageAuthenticationException('Given data are incorrect.');
     }
 }

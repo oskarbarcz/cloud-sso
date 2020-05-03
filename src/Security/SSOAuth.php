@@ -68,6 +68,12 @@ class SSOAuth extends AbstractFormLoginAuthenticator implements PasswordAuthenti
         return true;
     }
 
+    /** @param string $message */
+    private function throwNotValid(string $message = 'Given data are incorrect.'): void
+    {
+        throw new CustomUserMessageAuthenticationException($message);
+    }
+
     /** @inheritDoc */
     public function getCredentials(Request $request)
     {
@@ -97,12 +103,6 @@ class SSOAuth extends AbstractFormLoginAuthenticator implements PasswordAuthenti
         }
 
         return $user;
-    }
-
-    /** @param string $message */
-    private function throwNotValid(string $message = 'Given data are incorrect.'): void
-    {
-        throw new CustomUserMessageAuthenticationException($message);
     }
 
     /** @inheritDoc */

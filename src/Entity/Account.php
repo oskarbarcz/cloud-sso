@@ -49,6 +49,12 @@ class Account implements Hashable, Uniquable
         return $this->id;
     }
 
+    /** @see UserInterface */
+    public function getUsername(): string
+    {
+        return $this->getEmail();
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -59,12 +65,6 @@ class Account implements Hashable, Uniquable
         $this->email = $email;
 
         return $this;
-    }
-
-    /** @see UserInterface */
-    public function getUsername(): string
-    {
-        return $this->getEmail();
     }
 
     /** @see UserInterface */
