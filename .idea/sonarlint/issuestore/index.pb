@@ -55,12 +55,8 @@ V
 &src/Controller/GUI/UsersController.php,1/6/16978baa8ed5783c8cd2098abe9329a313d21ad4
 M
 config/packages/security.yaml,c/5/c5f941b4d4e9404f23935164fabdd261abb68e93
-R
-"templates/security/login.html.twig,8/9/89d5f9595fc54c90b0c2626c3e5e07e23a679864
 Y
 )src/Controller/GUI/SecurityController.php,9/0/903c03a61f219a0e27a1664a92913b38bd1a57ff
-K
-src/Fixture/UserFixture.php,3/1/317b13250b3651b1b4404807309db0b611721539
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
@@ -126,8 +122,6 @@ S
 #templates/components/user.html.twig,b/3/b3d4e75cb5b2dd1eec07a3dcda9d3569e47b8166
 Y
 )templates/components/login_form.html.twig,7/5/7536b7ccd75e1c0e3e75ce8acae10fd2e4b829bc
-a
-1src/Controller/RestApi/SingleSignOnController.php,9/9/9930d2ed8603811cdad4d9e7937986acb57b299f
 \
 ,src/Controller/RestApi/AccountController.php,5/b/5b20611e3c58f1265d2972728f2bbfc18c19fe4b
 F
@@ -152,7 +146,33 @@ B
 public/index.php,0/e/0e61f67641b441bb3ee38e903c594d99cafa14b4
 ]
 -config/packages/lexik_jwt_authentication.yaml,6/5/65c26613ceabd0458d2b780362983469dc4fdec6
-Q
-!src/Security/SsoLoginFormAuth.php,6/4/640a457e002dd2129ab6de3586570c9010fbba81
 N
 src/Security/LoginFormAuth.php,e/1/e1ffde94911da2cd69bd4a8b735e128109dbec16
+H
+src/Security/SSOAuth.php,2/c/2cf5c1c9824a5678b067b9a1580e8449400e007c
+O
+templates/pages/login.html.twig,b/7/b78ec7b5a19d54e3697866a89c1dc3fcd1b1dc25
+W
+'src/Migration/Version20200503002725.php,c/b/cbe588dab3bfdf9a418dc67bf0f17a51c478b9f0
+W
+'src/Migration/Version20200503002809.php,0/9/09200934ebfbd120a547790125bd79ec27556f0f
+G
+src/Entity/Hashable.php,8/d/8ded1fe46a43d1d689a479976b5610719cdd36b8
+V
+&src/EventListener/HashableListener.php,9/9/9990ad09382712f4369e728187be684ff01986e0
+N
+src/Fixture/AccountFixture.php,1/f/1fcb24297977d2c90aaf3e5a3a4325d8faa122a7
+W
+'src/Migration/Version20200503005441.php,3/1/31e200b2f65ae42b536801b27100a57b100580b3
+U
+%src/Service/RandomStringGenerator.php,c/1/c11ae94d9c092f0e2e3c4887c01b29ab2fb7487b
+W
+'src/EventListener/UniquableListener.php,4/8/48b84abae6a07f9838fdf2295d96e33276f8975b
+H
+src/Entity/Uniquable.php,a/1/a1f72694203327e19817048efce4655bfe663125
+d
+4src/Transformer/Serializer/SimpleArraySerializer.php,a/8/a8a085162c139e7fbc141db0feaaf5e452fa00b5
+V
+&src/Transformer/AccountTransformer.php,0/c/0c42d66bbc478239a3e0769d44ff99ac40cb0ecf
+]
+-src/Controller/SSO/SingleSignOnController.php,2/e/2ed841533eafa19bbe41e1e68adb1eb8b89b7282
