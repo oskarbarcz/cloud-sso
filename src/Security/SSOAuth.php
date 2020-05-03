@@ -29,7 +29,7 @@ class SSOAuth extends AbstractFormLoginAuthenticator implements PasswordAuthenti
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'app_login';
+    public const LOGIN_ROUTE = 'sso_login';
 
     private AccountRepository $accountRepository;
     private UrlGeneratorInterface $urlGenerator;
@@ -54,8 +54,18 @@ class SSOAuth extends AbstractFormLoginAuthenticator implements PasswordAuthenti
     /** @inheritDoc */
     public function supports(Request $request): bool
     {
-        return self::LOGIN_ROUTE === $request->attributes->get('_route')
-            && $request->isMethod('POST');
+        $support = self::LOGIN_ROUTE === $request->attributes->get('_route') && $request->isMethod('POST');
+
+        if (!$support) {
+            return false;
+        }
+
+        // SSO link must contain callback url
+        if (!$request->get('furtherRedirect')) {
+            $this->throwNotValid('SSO redirect link not accessible.');
+        }
+
+        return true;
     }
 
     /** @inheritDoc */
@@ -66,11 +76,8 @@ class SSOAuth extends AbstractFormLoginAuthenticator implements PasswordAuthenti
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
-        $request->getSession()->set(
-            Security::LAST_USERNAME,
-            $credentials['email']
-        );
 
+        $request->getSession()->set(Security::LAST_USERNAME, $credentials['email']);
         return $credentials;
     }
 
@@ -92,10 +99,10 @@ class SSOAuth extends AbstractFormLoginAuthenticator implements PasswordAuthenti
         return $user;
     }
 
-    /** @throws CustomUserMessageAuthenticationException */
-    private function throwNotValid(): void
+    /** @param string $message */
+    private function throwNotValid(string $message = 'Given data are incorrect.'): void
     {
-        throw new CustomUserMessageAuthenticationException('Given data are incorrect.');
+        throw new CustomUserMessageAuthenticationException($message);
     }
 
     /** @inheritDoc */

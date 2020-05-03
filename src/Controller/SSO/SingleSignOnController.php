@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Controller;
+declare(strict_types=1);
+
+namespace App\Controller\SSO;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +32,7 @@ class SingleSignOnController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="sso_logout")
+     * @Route("/sso/logout", name="sso_logout")
      */
     public function logout()
     {
