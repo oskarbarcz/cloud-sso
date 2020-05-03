@@ -17,6 +17,7 @@ class AccountTransformer extends TransformerAbstract
             'surname' => $account->getSurname(),
             'email' => $account->getEmail(),
             'roles' => $account->getRoles(),
+            'createdAt' => $account->getCreatedAt(),
         ];
     }
 }
