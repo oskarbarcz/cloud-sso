@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200503005441 extends AbstractMigration
+final class Version20200503200146 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -26,7 +26,7 @@ final class Version20200503005441 extends AbstractMigration
         );
 
         $this->addSql(
-            'ALTER TABLE account ADD uuid VARCHAR(10) NOT NULL, CHANGE roles roles JSON NOT NULL, CHANGE name name VARCHAR(180) DEFAULT NULL, CHANGE surname surname VARCHAR(180) DEFAULT NULL'
+            'ALTER TABLE account ADD created_at DATETIME NOT NULL, CHANGE roles roles JSON NOT NULL, CHANGE name name VARCHAR(180) DEFAULT NULL, CHANGE surname surname VARCHAR(180) DEFAULT NULL'
         );
     }
 
@@ -39,7 +39,7 @@ final class Version20200503005441 extends AbstractMigration
         );
 
         $this->addSql(
-            'ALTER TABLE account DROP uuid, CHANGE name name VARCHAR(180) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`, CHANGE surname surname VARCHAR(180) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`, CHANGE roles roles LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_bin`'
+            'ALTER TABLE account DROP created_at, CHANGE name name VARCHAR(180) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`, CHANGE surname surname VARCHAR(180) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`, CHANGE roles roles LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_bin`'
         );
     }
 }

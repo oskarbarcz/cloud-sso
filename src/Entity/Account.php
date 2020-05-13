@@ -43,7 +43,8 @@ class Account implements Hashable, Uniquable
     /** @ORM\Column(type="string") */
     private ?string $password = null;
 
-    private DateTime $createdAt;
+    /** @ORM\Column(type="datetime") */
+    private ?DateTime $createdAt = null;
 
     private ?string $plainPassword = null;
 
@@ -149,10 +150,8 @@ class Account implements Hashable, Uniquable
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getCreatedAt(): DateTime
+    /** @return DateTime */
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
