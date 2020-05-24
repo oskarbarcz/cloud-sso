@@ -129,7 +129,7 @@ class SSOAuth extends AbstractFormLoginAuthenticator implements PasswordAuthenti
     {
         $account = $token->getUser();
         $jwt = $this->tokenManager->create($account);
-        $refreshToken = $this->refreshTokenManager->create();
+        $refreshToken = $this->refreshTokenManager->getLastFromUsername($account->getUsername());
 
         return new RedirectResponse(
             "{$request->get('furtherRedirect')}?token={$jwt}&refresh_token={$refreshToken->getRefreshToken()}"
