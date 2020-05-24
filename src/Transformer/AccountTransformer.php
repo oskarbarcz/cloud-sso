@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Transformer;
 
 use App\Entity\Account;
+use DateTime;
 use League\Fractal\TransformerAbstract;
 
 class AccountTransformer extends TransformerAbstract
@@ -17,7 +18,7 @@ class AccountTransformer extends TransformerAbstract
             'surname' => $account->getSurname(),
             'email' => $account->getEmail(),
             'roles' => $account->getRoles(),
-            'createdAt' => $account->getCreatedAt(),
+            'createdAt' => $account->getCreatedAt()->format(DateTime::ATOM),
         ];
     }
 }

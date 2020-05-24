@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Repository\AccountRepository;
+use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,19 +37,22 @@ class SSOAuth extends AbstractFormLoginAuthenticator implements PasswordAuthenti
     private CsrfTokenManagerInterface $csrfTokenManager;
     private UserPasswordEncoderInterface $passwordEncoder;
     private JWTTokenManagerInterface $tokenManager;
+    private RefreshTokenManagerInterface $refreshTokenManager;
 
     public function __construct(
         AccountRepository $accountRepository,
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder,
-        JWTTokenManagerInterface $tokenManager
+        JWTTokenManagerInterface $tokenManager,
+        RefreshTokenManagerInterface $refreshTokenManager
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->tokenManager = $tokenManager;
         $this->accountRepository = $accountRepository;
+        $this->refreshTokenManager = $refreshTokenManager;
     }
 
     /** @inheritDoc */
@@ -125,8 +129,11 @@ class SSOAuth extends AbstractFormLoginAuthenticator implements PasswordAuthenti
     {
         $account = $token->getUser();
         $jwt = $this->tokenManager->create($account);
+        $refreshToken = $this->refreshTokenManager->create();
 
-        return new RedirectResponse("{$request->get('furtherRedirect')}?token={$jwt}");
+        return new RedirectResponse(
+            "{$request->get('furtherRedirect')}?token={$jwt}&refresh_token={$refreshToken->getRefreshToken()}"
+        );
     }
 
     /** @inheritDoc */
