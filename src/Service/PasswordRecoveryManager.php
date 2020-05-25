@@ -78,7 +78,25 @@ class PasswordRecoveryManager
         $this->entityManager->flush();
     }
 
-    public function verifyToken()
+    public function verifyToken(string $token): bool
     {
+        return true;
+    }
+
+    public function saveNewPassword(string $token, string $newPassword): void
+    {
+        $session = $this->tokenRepository->findOneBy(['token' => $token]);
+
+        if ($session === null || !$session->isValid()) {
+            throw new RuntimeException('Token does not exists or is invalid');
+        }
+
+        $account = $session->getAccount();
+        $account->setPlainPassword($newPassword);
+
+        $this->entityManager->persist($account);
+        $this->entityManager->remove($session);
+        $this->entityManager->flush();
+//        dd($session, $newPassword);
     }
 }

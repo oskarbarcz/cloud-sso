@@ -98,7 +98,7 @@ class Account implements Hashable, Uniquable
     }
 
     /** @see UserInterface */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -149,6 +149,7 @@ class Account implements Hashable, Uniquable
 
     public function setPlainPassword(?string $plainPassword): Account
     {
+        $this->password = null;
         $this->plainPassword = $plainPassword;
         return $this;
     }

@@ -92,7 +92,8 @@ class PasswordRecoveryToken implements Uniquable
         $this->validUntil = new DateTime('now + 24 hours');
     }
 
-    public function isValid(): void
+    public function isValid(): bool
     {
+        return true;
     }
 }

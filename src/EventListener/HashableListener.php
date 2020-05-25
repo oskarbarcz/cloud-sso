@@ -41,6 +41,14 @@ class HashableListener
 
     public function preUpdate(LifecycleEventArgs $args): void
     {
-        //TODO: on password update
+        $hashable = $args->getObject();
+
+        if (!$hashable instanceof Hashable) {
+            return;
+        }
+
+        if ($hashable->getPassword() === null) {
+            $this->hash($hashable);
+        }
     }
 }
