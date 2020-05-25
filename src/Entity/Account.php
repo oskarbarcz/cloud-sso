@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -11,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * Main account instance
  *
  * @ORM\Entity(repositoryClass="App\Repository\AccountRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Account implements Hashable, Uniquable
 {
@@ -40,6 +42,9 @@ class Account implements Hashable, Uniquable
 
     /** @ORM\Column(type="string") */
     private ?string $password = null;
+
+    /** @ORM\Column(type="datetime") */
+    private ?DateTime $createdAt = null;
 
     private ?string $plainPassword = null;
 
@@ -143,5 +148,17 @@ class Account implements Hashable, Uniquable
     {
         $this->plainPassword = $plainPassword;
         return $this;
+    }
+
+    /** @return DateTime */
+    public function getCreatedAt(): ?DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /** @ORM\PrePersist() */
+    public function setCreatedAt(): void
+    {
+        $this->createdAt = new DateTime();
     }
 }

@@ -57,10 +57,7 @@ class LoginFormAuth extends AbstractFormLoginAuthenticator implements PasswordAu
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
-        $request->getSession()->set(
-            Security::LAST_USERNAME,
-            $credentials['email']
-        );
+        $request->getSession()->set(Security::LAST_USERNAME, $credentials['email']);
 
         return $credentials;
     }
