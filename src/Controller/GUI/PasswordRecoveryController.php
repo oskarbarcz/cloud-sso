@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use function dd;
+
 class PasswordRecoveryController extends AbstractController
 {
     /**
@@ -24,5 +26,37 @@ class PasswordRecoveryController extends AbstractController
         }
 
         return $this->render('pages/password-recovery/init.html.twig');
+    }
+
+    /**
+     * @Route("/account/password-recovery/enter-code/{token}", name="app_account_password-recovery_enter-code")
+     * @param Request $request
+     * @return Response
+     */
+    public function proceedWithCode(Request $request, string $token = null): Response
+    {
+        $token = $token ?? $request->request->get('token');
+
+        if ($token !== null) {
+            dd($token);
+        }
+
+        return $this->render('pages/password-recovery/enter-code.html.twig');
+    }
+
+    /**
+     * @Route("/account/password-recovery/sucess", name="app_account_password-recovery_success")
+     * @param Request $request
+     * @return Response
+     */
+    public function success(Request $request, string $token = null): Response
+    {
+        $token = $token ?? $request->request->get('token');
+
+        if ($token !== null) {
+            dd($token);
+        }
+
+        return $this->render('pages/password-recovery/enter-code.html.twig');
     }
 }
