@@ -6,5 +6,11 @@ namespace App\Service;
 
 class PasswordRecoveryManager
 {
+    public function addNewToken()
+    {
+    }
 
+    public function verifyToken()
+    {
+    }
 }
