@@ -23,6 +23,6 @@ class PasswordRecoveryController extends AbstractController
             dd($email);
         }
 
-        return $this->render('pages/password-recovery.html.twig');
+        return $this->render('pages/password-recovery/init.html.twig');
     }
 }
