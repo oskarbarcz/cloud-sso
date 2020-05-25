@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=PasswordRecoveryTokenRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class PasswordRecoveryToken implements Uniquable
 {
@@ -27,7 +28,7 @@ class PasswordRecoveryToken implements Uniquable
     private ?string $uuid = null;
 
     /**
-     * @ORM\OneToOne(targetEntity=Account::class, inversedBy="passwordRecoveryToken", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Account::class, inversedBy="passwordRecoveryToken")
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Account $account = null;
@@ -89,5 +90,9 @@ class PasswordRecoveryToken implements Uniquable
     public function setValidUntil(): void
     {
         $this->validUntil = new DateTime('now + 24 hours');
+    }
+
+    public function isValid(): void
+    {
     }
 }

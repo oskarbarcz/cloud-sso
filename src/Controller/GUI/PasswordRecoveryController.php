@@ -30,7 +30,7 @@ class PasswordRecoveryController extends AbstractController
     {
         $email = $request->request->get('email');
         if ($email) {
-            dd($email);
+            $this->manager->addNewToken($email);
         }
 
         return $this->render('pages/password-recovery/init.html.twig');
