@@ -11,21 +11,29 @@ use App\Repository\PasswordRecoveryTokenRepository as TokenRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use RuntimeException;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class PasswordRecoveryManager
 {
     private AccountRepository $accountRepository;
     private TokenRepository $tokenRepository;
     private EntityManagerInterface $entityManager;
+    /**
+     * @var MailerInterface
+     */
+    private MailerInterface $mailer;
 
     public function __construct(
         AccountRepository $accountRepository,
         TokenRepository $tokenRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        MailerInterface $mailer
     ) {
         $this->accountRepository = $accountRepository;
         $this->tokenRepository = $tokenRepository;
         $this->entityManager = $entityManager;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -56,6 +64,15 @@ class PasswordRecoveryManager
 
         // mail should be sent here
         mail($account->getEmail(), 'Password Recovery', "token: {$token->getToken()}");
+
+        $email = (new Email())
+            ->from('abcd@abcd.pl')
+            ->to($account->getEmail())
+            ->subject('Token')
+            ->text("password recovery token: {$token->getToken()}");
+
+        $this->mailer->send($email);
+
 
         $this->entityManager->persist($account);
         $this->entityManager->flush();
