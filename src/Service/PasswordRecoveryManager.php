@@ -65,13 +65,13 @@ class PasswordRecoveryManager
         // mail should be sent here
         mail($account->getEmail(), 'Password Recovery', "token: {$token->getToken()}");
 
-        $email = (new Email())
+        $message = (new Email())
             ->from('abcd@abcd.pl')
             ->to($account->getEmail())
             ->subject('Token')
             ->text("password recovery token: {$token->getToken()}");
 
-        $this->mailer->send($email);
+        $this->mailer->send($message);
 
 
         $this->entityManager->persist($account);
