@@ -19,9 +19,6 @@ class PasswordRecoveryManager
     private AccountRepository $accountRepository;
     private TokenRepository $tokenRepository;
     private EntityManagerInterface $entityManager;
-    /**
-     * @var MailerInterface
-     */
     private MailerInterface $mailer;
 
     public function __construct(
