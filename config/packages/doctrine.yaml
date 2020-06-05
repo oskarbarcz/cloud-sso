@@ -13,3 +13,15 @@ doctrine:
         dir: '%kernel.project_dir%/src/Entity'
         prefix: 'App\Entity'
         alias: App
+      Domain:
+        is_bundle: false
+        type: xml
+        dir: '%kernel.project_dir%/config/mapping/orm/domain'
+        prefix: 'App\Domain'
+        alias: Domain
+      Projections:
+        is_bundle: false
+        type: xml
+        dir: '%kernel.project_dir%/config/mapping/orm/projections'
+        prefix: 'App\Infrastructure'
+        alias: Projections

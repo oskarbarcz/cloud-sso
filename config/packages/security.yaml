@@ -3,16 +3,18 @@ security:
     App\Entity\Account:
       algorithm: auto
   providers:
-    database:
-      entity:
-        class: App\Entity\Account
-        property: email
+    users:
+      id: 'App\Infrastructure\User\Auth\AuthProvider'
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
     api_refresh:
       pattern:  ^/api/login/refresh
+      stateless: true
+      anonymous: true
+    api_doc:
+      pattern:  ^/api/doc
       stateless: true
       anonymous: true
     api_login:
@@ -24,7 +26,7 @@ security:
         success_handler: lexik_jwt_authentication.handler.authentication_success
         failure_handler: lexik_jwt_authentication.handler.authentication_failure
     api:
-      pattern:   ^/api(!/doc)
+      pattern:   ^/api
       stateless: true
       guard:
         authenticators:
@@ -43,12 +45,13 @@ security:
       stateless: false
       anonymous: true
       lazy: true
-      provider: database
+      provider: users
       guard:
+        entry_point: 'App\Infrastructure\User\Auth\Guard\LoginFormAuthenticator'
         authenticators:
-          - App\Security\LoginFormAuth
+          - 'App\Infrastructure\User\Auth\Guard\LoginFormAuthenticator'
       logout:
-        path: app_logout
+        path: logout
       remember_me:
         secret:   '%kernel.secret%'
         lifetime: 604800 # 1 week in seconds
