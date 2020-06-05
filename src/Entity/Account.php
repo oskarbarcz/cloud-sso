@@ -46,6 +46,9 @@ class Account implements Hashable, Uniquable
     /** @ORM\Column(type="datetime") */
     private ?DateTime $createdAt = null;
 
+    /** @ORM\OneToOne(targetEntity=PasswordRecoveryToken::class, mappedBy="account", cascade={"persist"}) */
+    private ?PasswordRecoveryToken $passwordRecoveryToken = null;
+
     private ?string $plainPassword = null;
 
 
@@ -95,7 +98,7 @@ class Account implements Hashable, Uniquable
     }
 
     /** @see UserInterface */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -146,6 +149,7 @@ class Account implements Hashable, Uniquable
 
     public function setPlainPassword(?string $plainPassword): Account
     {
+        $this->password = null;
         $this->plainPassword = $plainPassword;
         return $this;
     }
@@ -160,5 +164,22 @@ class Account implements Hashable, Uniquable
     public function setCreatedAt(): void
     {
         $this->createdAt = new DateTime();
+    }
+
+    public function getPasswordRecoveryToken(): ?PasswordRecoveryToken
+    {
+        return $this->passwordRecoveryToken;
+    }
+
+    public function setPasswordRecoveryToken(?PasswordRecoveryToken $passwordRecoveryToken): self
+    {
+        $this->passwordRecoveryToken = $passwordRecoveryToken;
+
+        // set the owning side of the relation if necessary
+        if ($passwordRecoveryToken !== null && $passwordRecoveryToken->getAccount() !== $this) {
+            $passwordRecoveryToken->setAccount($this);
+        }
+
+        return $this;
     }
 }

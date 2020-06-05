@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Repository\AccountRepository;
+use DateTime;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -130,6 +131,14 @@ class SSOAuth extends AbstractFormLoginAuthenticator implements PasswordAuthenti
         $account = $token->getUser();
         $jwt = $this->tokenManager->create($account);
         $refreshToken = $this->refreshTokenManager->getLastFromUsername($account->getUsername());
+
+        if ($refreshToken === null) {
+            $refreshToken = $this->refreshTokenManager->create();
+            $refreshToken->setRefreshToken()
+                ->setUsername($account->getUsername())
+                ->setValid((new DateTime())->modify('+3 months'));
+            $this->refreshTokenManager->save($refreshToken);
+        }
 
         return new RedirectResponse(
             "{$request->get('furtherRedirect')}?token={$jwt}&refresh_token={$refreshToken->getRefreshToken()}"
