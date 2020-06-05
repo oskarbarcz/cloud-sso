@@ -24,7 +24,7 @@ security:
         success_handler: lexik_jwt_authentication.handler.authentication_success
         failure_handler: lexik_jwt_authentication.handler.authentication_failure
     api:
-      pattern:   ^/api
+      pattern:   ^/api(!/doc)
       stateless: true
       guard:
         authenticators:
@@ -32,7 +32,8 @@ security:
     sso:
       pattern: ^/sso
       stateless: false
-      anonymous: lazy
+      anonymous: true
+      lazy: true
       logout:
         path: sso_logout
       guard:
@@ -40,7 +41,8 @@ security:
           - App\Security\SSOAuth
     gui:
       stateless: false
-      anonymous: lazy
+      anonymous: true
+      lazy: true
       provider: database
       guard:
         authenticators:
@@ -53,6 +55,7 @@ security:
         path:     /
 
   access_control:
+    - { path: ^/api/doc, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/login/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }

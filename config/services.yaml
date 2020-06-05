@@ -11,13 +11,10 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
+    public: false
     bind:
       $eventBus: '@broadway.event_handling.event_bus'
       $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
-
-  League\Fractal\Manager:
-    calls:
-      - [setSerializer, ['@App\Transformer\Serializer\SimpleArraySerializer']]
 
   _instanceof:
     App\Infrastructure\Share\Bus\Command\CommandHandlerInterface:
