@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Share\Fixture;
 
 use App\Entity\Account;
+use App\Service\RandomStringGenerator;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -43,7 +44,9 @@ class AccountFixture extends Fixture
             ->setName("Name{$iteration}")
             ->setSurname("Surname{$iteration}")
             ->setEmail("test{$iteration}@example.com")
-            ->setPlainPassword("test{$iteration}");
+            ->setUuid(RandomStringGenerator::generate(10))
+            ->setPlainPassword("test{$iteration}")
+            ->setPassword('$2y$12$8MwJlukVeeabOahyESsTgenwmFfadtBAfJfYM/.0TnT0HNFaq8m6K');
 
         $this->manager->persist($account);
 

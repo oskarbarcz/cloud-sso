@@ -23,6 +23,7 @@ class HashableListener
     public function prePersist(LifecycleEventArgs $args): void
     {
         $hashable = $args->getObject();
+        dump($args->getObject());
 
         if (!$hashable instanceof Hashable) {
             return;

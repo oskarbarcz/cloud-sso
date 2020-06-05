@@ -18,7 +18,6 @@ services:
   App\EventListener\HashableListener:
     tags:
       - { name: doctrine.event_listener, event: prePersist }
-      - { name: doctrine.event_listener, event: preUpdate }
   App\EventListener\UniquableListener:
     tags:
       - { name: doctrine.event_listener, event: prePersist }
