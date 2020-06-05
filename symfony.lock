@@ -1,4 +1,25 @@
 {
+    "beberlei/assert": {
+        "version": "v3.2.7"
+    },
+    "broadway/broadway": {
+        "version": "2.3.1"
+    },
+    "broadway/broadway-bundle": {
+        "version": "0.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "0.4",
+            "ref": "0601c67ff07896a752e5a72381a22254ff754ea1"
+        },
+        "files": [
+            "config/packages/broadway.yaml"
+        ]
+    },
+    "broadway/uuid-generator": {
+        "version": "1.0.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
