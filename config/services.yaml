@@ -1,16 +1,20 @@
 parameters:
 
+  exception_to_status:
+    InvalidArgumentException: 400
+    App\Domain\User\Exception\InvalidCredentialsException: 401
+    App\Domain\User\Exception\ForbiddenException: 403
+    App\Domain\Shared\Query\Exception\NotFoundException: 404
+    Broadway\Repository\AggregateNotFoundException: 404
+
 services:
   _defaults:
     autowire: true
     autoconfigure: true
+    bind:
+      $eventBus: '@broadway.event_handling.event_bus'
+      $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
 
-  App\:
-    resource: '../src/*'
-    exclude: '../src/{DependencyInjection,Entity,Migration,Tests,Kernel.php}'
-  App\Controller\:
-    resource: '../src/Controller'
-    tags: ['controller.service_arguments']
   App\EventListener\HashableListener:
     tags:
       - { name: doctrine.event_listener, event: prePersist }
@@ -21,3 +25,78 @@ services:
   League\Fractal\Manager:
     calls:
       - [setSerializer, ['@App\Transformer\Serializer\SimpleArraySerializer']]
+
+  _instanceof:
+    App\Infrastructure\Share\Bus\Command\CommandHandlerInterface:
+      public: true
+      tags:
+        - { name: messenger.message_handler, bus: messenger.bus.command }
+
+    App\Infrastructure\Share\Bus\Query\QueryHandlerInterface:
+      public: true
+      tags:
+        - { name: messenger.message_handler, bus: messenger.bus.query }
+
+    App\Infrastructure\Share\Bus\Event\EventHandlerInterface:
+      public: true
+      tags:
+        - { name: messenger.message_handler, bus: messenger.bus.event.async }
+
+    Broadway\EventHandling\EventListener:
+      public: true
+      tags:
+        - { name: broadway.domain.event_listener }
+
+  App\:
+    resource: '../src/*'
+    exclude: '../src/**/{Migrations,EventSubscriber}'
+
+  App\Infrastructure\Share\Bus\Command\CommandBus:
+    arguments:
+      - '@messenger.bus.command'
+
+  App\Infrastructure\Share\Bus\Query\QueryBus:
+    arguments:
+      - '@messenger.bus.query'
+
+  App\Infrastructure\Share\Bus\Event\EventBus:
+    arguments:
+      - '@messenger.bus.event.async'
+
+  ### Event Store
+
+  Broadway\EventStore\Dbal\DBALEventStore:
+    public: true
+    arguments:
+      - '@doctrine.dbal.default_connection'
+      - '@broadway.serializer.payload'
+      - '@broadway.serializer.metadata'
+      - 'events'
+      - true
+      - '@broadway.uuid.converter'
+
+  ### UI
+
+  App\UI\Cli\Command\:
+    resource: '../src/UI/Cli/Command'
+
+  App\UI\Http\Rest\Controller\:
+    resource: '../src/UI/Http/Rest/Controller/*'
+    tags: [ 'controller.service_arguments' ]
+
+  App\UI\Http\Web\Controller\:
+    resource: '../src/UI/Http/Web/Controller/*'
+    tags: [ 'controller.service_arguments' ]
+
+  ### UI Listeners
+
+  App\UI\Http\Rest\EventSubscriber\ExceptionSubscriber:
+    arguments:
+      - "%kernel.environment%"
+      - "%exception_to_status%"
+    tags:
+      - { name: 'kernel.event_listener', event: 'kernel.exception' }
+
+  App\UI\Http\Rest\EventSubscriber\JsonBodyParserSubscriber:
+    tags:
+      - { name: 'kernel.event_listener', event: 'kernel.request', method: 'onKernelRequest', priority: 100 }
