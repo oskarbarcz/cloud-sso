@@ -21,6 +21,7 @@ final class CommandBus
     }
 
     /**
+     * @param CommandInterface $command
      * @throws Throwable
      */
     public function handle(CommandInterface $command): void

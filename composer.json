@@ -11,6 +11,8 @@
       "gesdinet/jwt-refresh-token-bundle": "^0.9.1",
       "league/fractal": "^0.19.2",
       "lexik/jwt-authentication-bundle": "^2.6",
+      "ramsey/uuid": "^4.0",
+      "ramsey/uuid-doctrine": "^1.6",
       "symfony/console": "5.0.*",
       "symfony/dotenv": "5.0.*",
       "symfony/flex": "^1.6",
