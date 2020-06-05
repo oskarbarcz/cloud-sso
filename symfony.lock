@@ -27,10 +27,7 @@
             "branch": "master",
             "version": "0.2",
             "ref": "a8e44b60058a2798f65be93037aa1562f4de60eb"
-        },
-        "files": [
-            "config/packages/broadway_event_store_dbal.yaml"
-        ]
+        }
     },
     "broadway/uuid-generator": {
         "version": "1.0.0"
@@ -126,14 +123,14 @@
     "doctrine/reflection": {
         "version": "1.2.1"
     },
+    "doctrine/sql-formatter": {
+        "version": "1.1.0"
+    },
     "egulias/email-validator": {
         "version": "2.1.17"
     },
     "gesdinet/jwt-refresh-token-bundle": {
         "version": "v0.9.1"
-    },
-    "jdorn/sql-formatter": {
-        "version": "v1.2.17"
     },
     "laminas/laminas-code": {
         "version": "3.4.1"
