@@ -15,12 +15,6 @@ services:
       $eventBus: '@broadway.event_handling.event_bus'
       $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
 
-  App\EventListener\HashableListener:
-    tags:
-      - { name: doctrine.event_listener, event: prePersist }
-  App\EventListener\UniquableListener:
-    tags:
-      - { name: doctrine.event_listener, event: prePersist }
   League\Fractal\Manager:
     calls:
       - [setSerializer, ['@App\Transformer\Serializer\SimpleArraySerializer']]
