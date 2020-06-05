@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "0f5760c879d6ba9cfa78970b2652392c",
+  "content-hash": "7d952914de584ee9bd7143169c15f57b",
   "packages": [
     {
       "name": "doctrine/annotations",
@@ -15,16 +15,16 @@
         "reference": "b9d758e831c70751155c698c2f7df4665314a1cb"
       },
       "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/b9d758e831c70751155c698c2f7df4665314a1cb",
-                "reference": "b9d758e831c70751155c698c2f7df4665314a1cb",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/lexer": "1.*",
-                "ext-tokenizer": "*",
-                "php": "^7.1"
-            },
+        "type": "zip",
+        "url": "https://api.github.com/repos/doctrine/annotations/zipball/b9d758e831c70751155c698c2f7df4665314a1cb",
+        "reference": "b9d758e831c70751155c698c2f7df4665314a1cb",
+        "shasum": ""
+      },
+      "require": {
+        "doctrine/lexer": "1.*",
+        "ext-tokenizer": "*",
+        "php": "^7.1"
+      },
             "require-dev": {
                 "doctrine/cache": "1.*",
                 "phpunit/phpunit": "^7.5"
@@ -1230,14 +1230,14 @@
                     "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com"
                 },
-                {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com"
-                },
-                {
-                    "name": "Marco Pivetta",
-                    "email": "ocramius@gmail.com"
-                }
+              {
+                "name": "Johannes Schmitt",
+                "email": "schmittjoh@gmail.com"
+              },
+              {
+                "name": "Marco Pivetta",
+                "email": "ocramius@gmail.com"
+              }
             ],
           "description": "The Doctrine Reflection project is a simple library used by the various Doctrine projects which adds some additional functionality on top of the reflection functionality that comes with PHP. It allows you to get the reflection information about classes, methods and properties statically.",
           "homepage": "https://www.doctrine-project.org/projects/reflection.html",
@@ -1316,16 +1316,16 @@
       "dist": {
         "type": "zip",
         "url": "https://api.github.com/repos/markitosgv/JWTRefreshTokenBundle/zipball/1f2729e45b5eb28d6461d94dadeb0211a96754e8",
-                "reference": "1f2729e45b5eb28d6461d94dadeb0211a96754e8",
-                "shasum": ""
-            },
-            "require": {
-                "lexik/jwt-authentication-bundle": "^1.1|^2.0@dev",
-                "php": "^5.5.9|>=7.0.8",
-                "symfony/framework-bundle": "~3.4|~4.0|~5.0",
-                "symfony/validator": "~3.4|~4.0|~5.0"
-            },
-            "require-dev": {
+        "reference": "1f2729e45b5eb28d6461d94dadeb0211a96754e8",
+        "shasum": ""
+      },
+      "require": {
+        "lexik/jwt-authentication-bundle": "^1.1|^2.0@dev",
+        "php": "^5.5.9|>=7.0.8",
+        "symfony/framework-bundle": "~3.4|~4.0|~5.0",
+        "symfony/validator": "~3.4|~4.0|~5.0"
+      },
+      "require-dev": {
                 "doctrine/doctrine-bundle": "~1.4|~2.0",
                 "doctrine/mongodb-odm-bundle": "^3.4|^4.0",
                 "doctrine/orm": "^2.4.8",
@@ -3843,14 +3843,14 @@
                 "words"
             ],
             "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                  "type": "github"
-                },
+              {
+                "url": "https://symfony.com/sponsor",
+                "type": "custom"
+              },
+              {
+                "url": "https://github.com/fabpot",
+                "type": "github"
+              },
               {
                 "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                 "type": "tidelift"
@@ -3940,6 +3940,95 @@
       "time": "2020-04-28T17:58:55+00:00"
     },
     {
+      "name": "symfony/messenger",
+      "version": "v5.0.9",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/symfony/messenger.git",
+        "reference": "c46d33499132d96f422e3184cbcf8d12c197ae67"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/symfony/messenger/zipball/c46d33499132d96f422e3184cbcf8d12c197ae67",
+        "reference": "c46d33499132d96f422e3184cbcf8d12c197ae67",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=7.2.5",
+        "psr/log": "^1.0",
+        "symfony/polyfill-php80": "^1.15"
+      },
+      "conflict": {
+        "doctrine/persistence": "<1.3",
+        "symfony/event-dispatcher": "<4.4",
+        "symfony/framework-bundle": "<4.4",
+        "symfony/http-kernel": "<4.4"
+      },
+      "require-dev": {
+        "doctrine/dbal": "^2.6|^3.0",
+        "doctrine/persistence": "^1.3",
+        "psr/cache": "~1.0",
+        "symfony/console": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/event-dispatcher": "^4.4|^5.0",
+        "symfony/http-kernel": "^4.4|^5.0",
+        "symfony/process": "^4.4|^5.0",
+        "symfony/property-access": "^4.4|^5.0",
+        "symfony/serializer": "^4.4|^5.0",
+        "symfony/service-contracts": "^1.1|^2",
+        "symfony/stopwatch": "^4.4|^5.0",
+        "symfony/validator": "^4.4|^5.0"
+      },
+      "suggest": {
+        "enqueue/messenger-adapter": "For using the php-enqueue library as a transport."
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\Messenger\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Samuel Roze",
+          "email": "samuel.roze@gmail.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
+      "description": "Symfony Messenger Component",
+      "homepage": "https://symfony.com",
+      "funding": [
+        {
+          "url": "https://symfony.com/sponsor",
+          "type": "custom"
+        },
+        {
+          "url": "https://github.com/fabpot",
+          "type": "github"
+        },
+        {
+          "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+          "type": "tidelift"
+        }
+      ],
+      "time": "2020-05-28T09:07:30+00:00"
+    },
+    {
       "name": "symfony/mime",
       "version": "v5.0.8",
       "source": {
@@ -3950,16 +4039,16 @@
       "dist": {
         "type": "zip",
         "url": "https://api.github.com/repos/symfony/mime/zipball/5d6c81c39225a750f3f43bee15f03093fb9aaa0b",
-                "reference": "5d6c81c39225a750f3f43bee15f03093fb9aaa0b",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2.5",
-                "symfony/polyfill-intl-idn": "^1.10",
-                "symfony/polyfill-mbstring": "^1.0"
-            },
-            "conflict": {
-                "symfony/mailer": "<4.4"
+        "reference": "5d6c81c39225a750f3f43bee15f03093fb9aaa0b",
+        "shasum": ""
+      },
+      "require": {
+        "php": "^7.2.5",
+        "symfony/polyfill-intl-idn": "^1.10",
+        "symfony/polyfill-mbstring": "^1.0"
+      },
+      "conflict": {
+        "symfony/mailer": "<4.4"
             },
             "require-dev": {
                 "egulias/email-validator": "^2.1.10",
@@ -4235,26 +4324,102 @@
                     "email": "p@tchwork.com"
                 },
                 {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
+                  "name": "Symfony Community",
+                  "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony polyfill backporting some PHP 7.3+ features to lower PHP versions",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
+          "description": "Symfony polyfill backporting some PHP 7.3+ features to lower PHP versions",
+          "homepage": "https://symfony.com",
+          "keywords": [
+            "compatibility",
+            "polyfill",
+            "portable",
+            "shim"
+          ],
+          "funding": [
+            {
+              "url": "https://symfony.com/sponsor",
+              "type": "custom"
+            },
+            {
+              "url": "https://github.com/fabpot",
+              "type": "github"
+            },
+            {
+              "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+              "type": "tidelift"
+            }
+          ],
+          "time": "2020-05-12T16:47:27+00:00"
+        },
+    {
+      "name": "symfony/polyfill-php80",
+      "version": "v1.17.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/symfony/polyfill-php80.git",
+        "reference": "5e30b2799bc1ad68f7feb62b60a73743589438dd"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/5e30b2799bc1ad68f7feb62b60a73743589438dd",
+        "reference": "5e30b2799bc1ad68f7feb62b60a73743589438dd",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=7.0.8"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "1.17-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Polyfill\\Php80\\": ""
+        },
+        "files": [
+          "bootstrap.php"
+        ],
+        "classmap": [
+          "Resources/stubs"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Ion Bazan",
+          "email": "ion.bazan@gmail.com"
+        },
+        {
+          "name": "Nicolas Grekas",
+          "email": "p@tchwork.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
+      "description": "Symfony polyfill backporting some PHP 8.0+ features to lower PHP versions",
+      "homepage": "https://symfony.com",
+      "keywords": [
+        "compatibility",
+        "polyfill",
+        "portable",
+        "shim"
+      ],
+      "funding": [
+        {
+          "url": "https://symfony.com/sponsor",
+          "type": "custom"
+        },
+        {
+          "url": "https://github.com/fabpot",
+          "type": "github"
                 },
                 {
                     "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
