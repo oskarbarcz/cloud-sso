@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Fixture;
+namespace App\Infrastructure\Share\Fixture;
 
 use App\Entity\Account;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -10,6 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 use function range;
+use function sprintf;
 
 class AccountFixture extends Fixture
 {
