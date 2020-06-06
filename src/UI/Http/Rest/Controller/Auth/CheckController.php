@@ -19,7 +19,7 @@ final class CheckController extends CommandQueryController
 {
     /**
      * @Route(
-     *     "/auth_check",
+     *     "/auth/login",
      *     name="auth_check",
      *     methods={"POST"},
      *     requirements={

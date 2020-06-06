@@ -14,11 +14,8 @@ use Ramsey\Uuid\UuidInterface;
 
 final class UserStore extends EventSourcingRepository implements UserRepositoryInterface
 {
-    public function __construct(
-        EventStore $eventStore,
-        EventBus $eventBus,
-        array $eventStreamDecorators = []
-    ) {
+    public function __construct(EventStore $eventStore, EventBus $eventBus, array $eventStreamDecorators = [])
+    {
         parent::__construct(
             $eventStore,
             $eventBus,

@@ -1,5 +1,6 @@
 doctrine:
   dbal:
+    default_connection: default
     url: '%env(resolve:DATABASE_URL)%'
     server_version: 'mariadb-10.4.12'
   orm:

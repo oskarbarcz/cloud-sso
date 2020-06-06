@@ -4,10 +4,17 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Share\Fixture;
 
-use App\Entity\Account;
-use App\Service\RandomStringGenerator;
+use App\Domain\Shared\Exception\DateTimeException;
+use App\Domain\User\Specification\UniqueEmailSpecificationInterface;
+use App\Domain\User\User;
+use App\Domain\User\ValueObject\Auth\Credentials;
+use App\Domain\User\ValueObject\Auth\HashedPassword;
+use App\Domain\User\ValueObject\Email;
+use App\Infrastructure\User\Repository\UserStore;
+use Assert\AssertionFailedException;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 use function range;
@@ -15,48 +22,52 @@ use function sprintf;
 
 class AccountFixture extends Fixture
 {
-    private ObjectManager $manager;
     private ConsoleOutput $output;
+    private UserStore $userStore;
+    private UniqueEmailSpecificationInterface $emailSpecification;
 
-    public function __construct()
+    public function __construct(UserStore $userStore, UniqueEmailSpecificationInterface $emailSpecification)
     {
         $this->output = new ConsoleOutput();
+        $this->userStore = $userStore;
+        $this->emailSpecification = $emailSpecification;
     }
 
+    /**
+     * @param ObjectManager $manager
+     * @throws AssertionFailedException
+     * @throws DateTimeException
+     */
     public function load(ObjectManager $manager): void
     {
         $this->output->writeln('Starting Fixture load');
 
-        $this->manager = $manager;
-
         foreach (range(0, 100) as $i) {
             $this->loadUser($i);
         }
-
-        $manager->flush();
     }
 
+    /**
+     * @param int $iteration
+     * @throws AssertionFailedException
+     * @throws DateTimeException
+     */
     public function loadUser(int $iteration): void
     {
-        $account = new Account();
+        $raw = "password{$iteration}";
+        $password = HashedPassword::encode($raw);
+        $credentials = new Credentials(Email::fromString("test{$iteration}@test.com"), $password);
 
-        $account
-            ->setName("Name{$iteration}")
-            ->setSurname("Surname{$iteration}")
-            ->setEmail("test{$iteration}@example.com")
-            ->setUuid(RandomStringGenerator::generate(10))
-            ->setPlainPassword("test{$iteration}")
-            ->setPassword('$2y$12$8MwJlukVeeabOahyESsTgenwmFfadtBAfJfYM/.0TnT0HNFaq8m6K');
 
-        $this->manager->persist($account);
+        $user = User::create(Uuid::uuid4(), $credentials, $this->emailSpecification);
 
         $log = sprintf(
-            "Added user \"%s\" (email: \"%s\") with password \"%s\".",
-            $account->getUsername(),
-            $account->getEmail(),
-            "test{$iteration}"
+            "Added user new user (email: \"%s\") with password \"%s\".",
+            $user->email(),
+            $raw
         );
 
+        $this->userStore->store($user);
         $this->output->writeln($log);
     }
 }

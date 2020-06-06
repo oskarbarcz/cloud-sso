@@ -1,5 +1,7 @@
 parameters:
 
+  broadway.event_store.dbal.connection: 'default'
+
   exception_to_status:
     InvalidArgumentException: 400
     App\Domain\User\Exception\InvalidCredentialsException: 401
@@ -61,7 +63,7 @@ services:
       - '@doctrine.dbal.default_connection'
       - '@broadway.serializer.payload'
       - '@broadway.serializer.metadata'
-      - 'events'
+      - 'event_store'
       - true
       - '@broadway.uuid.converter'
 
