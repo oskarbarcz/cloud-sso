@@ -10,7 +10,7 @@ use App\Domain\User\Event\UserEmailChanged;
 use App\Domain\User\Event\UserSignedIn;
 use App\Domain\User\Event\UserWasCreated;
 use App\Domain\User\Exception\InvalidCredentialsException;
-use App\Domain\User\Specification\UniqueEmailSpecificationInterface;
+use App\Domain\User\Specification\UniqueEmailSpecificationInterface as UniqueEmailSpec;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
@@ -40,35 +40,35 @@ class User extends EventSourcedAggregateRoot
     private $updatedAt;
 
     /**
+     * @param UuidInterface   $uuid
+     * @param Credentials     $credentials
+     * @param UniqueEmailSpec $uniqueEmailSpec
+     * @return User
      * @throws DateTimeException
      */
-    public static function create(
-        UuidInterface $uuid,
-        Credentials $credentials,
-        UniqueEmailSpecificationInterface $uniqueEmailSpecification
-    ): self {
-        $uniqueEmailSpecification->isUnique($credentials->email);
+    public static function create(UuidInterface $uuid, Credentials $credentials, UniqueEmailSpec $uniqueEmailSpec): self
+    {
+        $uniqueEmailSpec->isUnique($credentials->email);
 
         $user = new self();
-
         $user->apply(new UserWasCreated($uuid, $credentials, DateTime::now()));
 
         return $user;
     }
 
     /**
+     * @param Email           $email
+     * @param UniqueEmailSpec $uniqueEmailSpecification
      * @throws DateTimeException
      */
-    public function changeEmail(
-        Email $email,
-        UniqueEmailSpecificationInterface $uniqueEmailSpecification
-    ): void {
+    public function changeEmail(Email $email, UniqueEmailSpec $uniqueEmailSpecification): void
+    {
         $uniqueEmailSpecification->isUnique($email);
         $this->apply(new UserEmailChanged($this->uuid, $email, DateTime::now()));
     }
 
     /**
-     * @throws InvalidCredentialsException
+     * @param string $plainPassword
      */
     public function signIn(string $plainPassword): void
     {

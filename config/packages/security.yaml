@@ -1,7 +1,8 @@
 security:
   encoders:
-    App\Entity\Account:
-      algorithm: auto
+    bcrypt:
+      algorithm: bcrypt
+      cost: 12
   providers:
     users:
       id: 'App\Infrastructure\User\Auth\AuthProvider'
@@ -9,38 +10,40 @@ security:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
+
     api_refresh:
       pattern:  ^/api/login/refresh
       stateless: true
       anonymous: true
+      methods: [POST]
+
     api_doc:
       pattern:  ^/api/doc
       stateless: true
       anonymous: true
+
     api_login:
-      pattern:  ^/api/login
+      pattern:  ^/api/auth_check
       stateless: true
       anonymous: true
-      json_login:
-        check_path:      /api/login
-        success_handler: lexik_jwt_authentication.handler.authentication_success
-        failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
     api:
       pattern:   ^/api
       stateless: true
+      provider: users
       guard:
         authenticators:
           - lexik_jwt_authentication.jwt_token_authenticator
-    sso:
-      pattern: ^/sso
-      stateless: false
-      anonymous: true
-      lazy: true
-      logout:
-        path: sso_logout
-      guard:
-        authenticators:
-          - App\Security\SSOAuth
+    #    sso:
+    #      pattern: ^/sso
+    #      stateless: false
+    #      anonymous: true
+    #      lazy: true
+    #      logout:
+    #        path: sso_logout
+    #      guard:
+    #        authenticators:
+    #          - App\Security\SSOAuth
     gui:
       stateless: false
       anonymous: true
@@ -59,7 +62,7 @@ security:
 
   access_control:
     - { path: ^/api/doc, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/auth_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/login/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
     - { path: ^/dashboard, roles: IS_AUTHENTICATED_FULLY  }

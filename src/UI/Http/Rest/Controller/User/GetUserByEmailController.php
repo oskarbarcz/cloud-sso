@@ -18,6 +18,8 @@ use Throwable;
 final class GetUserByEmailController extends QueryController
 {
     /**
+     * Get user by its mail
+     *
      * @Route(
      *     "/user/{email}",
      *     name="find_user",
